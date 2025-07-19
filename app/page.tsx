@@ -1,5 +1,5 @@
-import Navbar from "./components/navbar/navbar.tsx"
-import Sidebar from "./components/sidebar/sidebar.tsx"
+import Navbar from "./components/navbar/navbar"
+import Sidebar from "./components/sidebar/sidebar"
 
 export default function Home() {
   return (

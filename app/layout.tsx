@@ -6,11 +6,7 @@ export const metadata: Metadata = {
   description: "A social media app for UCC students",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children, }: Readonly <{ children: React.ReactNode;}>) {
   return (
     <html lang="en">
       <body>

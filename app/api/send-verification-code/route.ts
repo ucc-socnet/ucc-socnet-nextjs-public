@@ -34,10 +34,16 @@ export async function POST(req: Request) {
 
   } catch (error) {
     console.error('Error sending email:', error);
+
+    let message = 'unknown error';
+    if (error instanceof Error) {
+      message = error.message;
+    }
+
     return NextResponse.json({
       success: false,
       message: 'Failed to send verification email.',
-      error: error.message
+      error: message
     }, { status: 500 });
   }
 }

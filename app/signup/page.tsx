@@ -12,14 +12,12 @@ export default function Signup() {
   const [password, setPassword] = useState('');
   const [verificationCode, setVerificationCode] = useState('');
   const [isVerificationCodeSent, setIsVerificationCodeSent] = useState(false);
-  const [errorMsg, setErrorMsg] = useState('');
 
   const router = useRouter();
-  const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth);
+  const [createUserWithEmailAndPassword, error] = useCreateUserWithEmailAndPassword(auth);
 
   const handleSignUp = async (event) => {
     event.preventDefault();
-    setErrorMsg('');
 
     try {
       const res = await fetch('/api/send-verification-code', {
@@ -37,7 +35,6 @@ export default function Signup() {
       }
     } catch (e) {
       console.error("Signup error:", e);
-      setErrorMsg('Signup failed: ' + e.message);
     }
   };
 

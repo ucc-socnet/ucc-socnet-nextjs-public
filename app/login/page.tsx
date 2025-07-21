@@ -12,7 +12,7 @@ export default function Login() {
 
   const router = useRouter();
 
-  const [signInWithEmailAndPassword, user, loading, error] =
+  const [signInWithEmailAndPassword, error] =
     useSignInWithEmailAndPassword(auth);
 
   const handleLogin = async (event) => {

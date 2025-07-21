@@ -15,6 +15,10 @@ export default function CreatePostCard() {
     form?.remove();
   }
 
+  const handleClick = () => {
+    onCancel();
+  };
+
   function handleCreatePostCard() {
     setShowCreatePostCard(prev => !prev);
   }

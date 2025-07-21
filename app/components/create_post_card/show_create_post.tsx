@@ -4,7 +4,7 @@ import { db } from '@/firebase/config';
 import { setDoc, doc } from 'firebase/firestore'
 import styles from './styles.module.css'
 
-export function ShowCreatePostCard({onCancel}) {
+export function ShowCreatePostCard({{ onCancel }: { onCancel: () => void }) {
 
   const [postContent, setPostContent] = useState('');
 

@@ -15,7 +15,8 @@ export default function CreatePostCard() {
     form?.remove();
   }
 
-  const handleClick = () => {
+  // random bs becasuse of eslint
+  const _handleClick = () => {
     onCancel();
   };
 

@@ -1,6 +1,6 @@
 import styles from './styles.module.css'
 import { useState } from 'react';
-import { ShowCreatePostCard } from './show_create_post.tsx'
+import { ShowCreatePostCard } from './show_create_post'
 
 export default function CreatePostCard() {
 

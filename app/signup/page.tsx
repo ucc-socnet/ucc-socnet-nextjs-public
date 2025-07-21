@@ -15,8 +15,9 @@ export default function Signup() {
 
   const router = useRouter();
   const [createUserWithEmailAndPassword, error] = useCreateUserWithEmailAndPassword(auth);
+  console.log(error);
 
-  const handleSignUp = async (event) => {
+  const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
@@ -38,7 +39,7 @@ export default function Signup() {
     }
   };
 
-  const handleVerification = async (event) => {
+  const handleVerification = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
@@ -49,6 +50,8 @@ export default function Signup() {
       }
 
       const userCredential = await createUserWithEmailAndPassword(gmail, password);
+      if (userCredential == null) return;
+
       const userId = userCredential.user.uid;
       setPassword('');
 
@@ -58,8 +61,9 @@ export default function Signup() {
       });
 
       router.replace('/');
-    } catch (e) {
-      setErrorMsg('Verification failed: ' + e.message);
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : String(e);
+      alert('Verification failed: ' + message);
     }
   };
 
@@ -101,7 +105,7 @@ export default function Signup() {
           <a href="/login">Log in</a>
         </div>
 
-        {error && <center><p style={{ color: 'red' }}>{error.message}</p></center>}
+        {/*{error && <center><p style={{ color: 'red' }}>{error.message}</p></center>}*/}
       </form>
     </div>
   );

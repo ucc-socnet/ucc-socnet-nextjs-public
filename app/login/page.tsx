@@ -12,10 +12,12 @@ export default function Login() {
 
   const router = useRouter();
 
-  const [signInWithEmailAndPassword, error] =
-    useSignInWithEmailAndPassword(auth);
+  const [signInWithEmailAndPassword, _userCredential, _loading, error] = useSignInWithEmailAndPassword(auth);
 
-  const handleLogin = async (event) => {
+  console.log(_userCredential);
+  console.log(_loading);
+
+  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
@@ -28,9 +30,9 @@ export default function Login() {
         router.push('/'); // Redirect after login
       }
 
-    } catch (e) {
-      console.error("Login error:", e);
-      setErrorMsg("Login failed.");
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : String(e);
+      alert('Login error: ' + message);
     }
   };
 
@@ -60,7 +62,7 @@ export default function Login() {
 
         {error && (
           <center><p style={{ color: 'red' }}>
-            {error.message.substring(9)}
+            {error.message}
           </p></center>
         )}
 

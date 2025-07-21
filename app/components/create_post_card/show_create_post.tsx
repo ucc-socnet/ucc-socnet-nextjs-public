@@ -8,7 +8,8 @@ export function ShowCreatePostCard( {onCancel}: { onCancel: () => void }) {
 
   const [postContent, setPostContent] = useState('');
 
-  const handlePostUpload = async(event)=> {
+  // const handlePostUpload = async()=> {
+  const handlePostUpload = async(event: React.FormEvent<HTMLFormElement>)=> {
     event.preventDefault();
 
     if (postContent == '') {
@@ -24,8 +25,6 @@ export function ShowCreatePostCard( {onCancel}: { onCancel: () => void }) {
       postId += characters.charAt(randomInd);
     }
 
-    try {
-
       await setDoc(doc(db, "users_posts", postId), {
         username: "Username12982",
         userID: "9238402394asdfi2j",
@@ -35,17 +34,13 @@ export function ShowCreatePostCard( {onCancel}: { onCancel: () => void }) {
       alert('Post created.');
       onCancel();
 
-    } catch (error) {
-      console.log('failed to upload the post to the server: ' + error.message);
-      alert('failed to upload the post to the server: '  + error.message);
-    }
-
   };
 
   function addImageArea() {
-    const input_area = document.getElementById('text_input_container');
     // const btn = document.getElementById('add_img_btn');
 
+    const input_area = document.getElementById('text_input_container');
+    if (input_area == null) return;
     if (document.getElementById('image-upload')) return;
 
     const label = document.createElement('label');

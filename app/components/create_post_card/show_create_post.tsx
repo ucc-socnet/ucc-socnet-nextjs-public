@@ -44,7 +44,7 @@ export function ShowCreatePostCard({onCancel}) {
 
   function addImageArea() {
     const input_area = document.getElementById('text_input_container');
-    const btn = document.getElementById('add_img_btn');
+    // const btn = document.getElementById('add_img_btn');
 
     if (document.getElementById('image-upload')) return;
 

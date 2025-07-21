@@ -32,7 +32,7 @@ export async function POST(req: Request) {
       code: random_code // Optional: for dev purposes
     });
 
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error sending email:', error);
     return NextResponse.json({
       success: false,

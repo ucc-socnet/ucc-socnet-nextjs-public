@@ -1,0 +1,152 @@
+.create_post_card {
+	margin: 20px auto;
+	min-width: 70%;
+	height: fit-content;
+	background-color: white;
+	padding: 15px;
+	border-radius: 8px;
+	box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#create_post_card_popup {
+	position: absolute;
+	top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+}
+
+/* used when the user clicked the create post */
+.background_cover {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background-color: rgba(0, 0, 0, .6);
+}
+
+.user_input {
+	display: flex;
+	margin: 10px;
+}
+
+.avatar {
+	width: 40px;
+	height: 40px;
+	background-color: orange;
+	border-radius: 50%;
+	margin-right: 10px;
+	flex-shrink: 0;
+}
+
+.button {
+	padding: 8px 14px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+#create_post_button {
+	padding: 10px;
+	margin: auto;
+	width: 100%;
+	color: dimgray;
+	cursor: pointer;
+	background-color: #eee;
+}
+
+.add_media {
+	width: fit-content;
+	padding: 8px;
+	background-color: #eee;
+	border-radius: 5px;
+	text-align: center;
+	cursor: pointer;
+}
+
+
+/* create post card */
+
+.user_info {
+	display: flex;
+	align-items: center;
+	margin-left: 10px;
+	flex: 1;
+}
+
+.username_date {
+	display: flex;
+	flex-direction: column;
+}
+
+.username {
+	font-weight: bold;
+	font-size: 16px;
+	color: #333;
+}
+
+.date {
+	font-size: 12px;
+	color: gray;
+}
+
+.text_input_container {
+	justify-content: center;
+	width: 100%;
+	height: auto;
+	margin: 10px 0px;
+}
+
+.text_input_container textarea {
+	width: 100%;
+	padding: 10px;
+	max-height: 500px;
+	border-radius: 10px;
+	overflow: hidden;
+	resize: none;
+	background-color: #ededed;
+}
+
+.actions {
+	display: flex;
+	justify-content: space-between;
+}
+
+.post_controls {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+#cancel_post_btn {
+	background-color: #ff8686;
+}
+
+#post_btn {
+	background: #ddd;
+}
+
+#add_image_btn {
+  background: #ddd;
+}
+
+
+
+/* upload image related css */
+
+.img_upload_container {
+  padding: 20px;
+  border: 2px dashed black;
+  display: grid;
+  grid-template-rows: auto auto auto;
+  gap: 10px;
+  justify-content: center;
+  text-align: center;
+}
+
+.img_upload_container:hover {
+  background: lightgray;
+}
+
+.post_image {
+	background-color: #ccc;
+	height: 150px;
+	border-radius: 8px;
+}

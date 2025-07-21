@@ -6,6 +6,7 @@ export default function CreatePostCard() {
 
   const [showCreatePostCard, setShowCreatePostCard] = useState(false);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   function onCancel() {
     const cover = document.getElementById(styles.background_cover);
     const form = document.getElementById(styles.create_post_card_popup);
@@ -14,11 +15,6 @@ export default function CreatePostCard() {
     cover?.remove();
     form?.remove();
   }
-
-  // random bs becasuse of eslint
-  const _handleClick = () => {
-    onCancel();
-  };
 
   function handleCreatePostCard() {
     setShowCreatePostCard(prev => !prev);

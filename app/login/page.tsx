@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from 'next/navigation';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { auth } from '@/firebase/config';
+import {sessionHandler} from './create_session';
 
 export default function Login() {
   const [gmail, setGmail] = useState('');
@@ -22,16 +23,28 @@ export default function Login() {
 
     try {
       const res = await signInWithEmailAndPassword(gmail, password);
-      console.log({ res });
+      // console.log({ res });
 
       if (res?.user) {
         setPassword('');
         setErrorMsg('');
-        router.push('/'); // Redirect after login
+
+        const userID: string = res.user.uid;
+        const session_result = await sessionHandler(userID);
+
+        if (session_result.success == false) {
+          console.log("Error from sessionHandler: " + session_result.message);
+          return;
+        } else if (session_result.success) {
+          console.log("Successfully created session");
+          router.push('/'); // Redirect after login
+        }
+
       }
 
     } catch (e: unknown) {
       const message = e instanceof Error ? e.message : String(e);
+      console.log('Login error: ' + message);
       alert('Login error: ' + message);
     }
   };

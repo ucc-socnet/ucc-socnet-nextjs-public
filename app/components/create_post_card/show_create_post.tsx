@@ -29,10 +29,13 @@ export function ShowCreatePostCard( {onCancel}: { onCancel: () => void }) {
     const data = await res.json();
     console.log("Session payload:", data);
 
+    const date_created = new Date().toISOString();
+
     await setDoc(doc(db, "users_posts", postId), {
       username: data.username,
       userID: data.userID,
-      postContent: postContent
+      postContent: postContent,
+      date_posted: date_created,
     });
 
     alert('Post created.');

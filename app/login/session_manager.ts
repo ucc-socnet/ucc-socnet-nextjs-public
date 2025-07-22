@@ -10,7 +10,7 @@ const encodedKey = new TextEncoder().encode(secretKey);
 
 export async function createSession(userID: string) {
 	const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-	const session = await encrypt({userID});
+	const session = await encrypt(userID);
 
 	try {
 	  const cookie = await cookies();
@@ -24,10 +24,10 @@ export async function createSession(userID: string) {
 	}
 }
 
-type SessionPayload = {
-	userID: string;
-	// expiresAt: Date;
-};
+// type SessionPayload = {
+// 	userID: string;
+// 	expiresAt: Date;
+// };
 
 export async function encrypt(userID: string) {
 	return new SignJWT({userID})
@@ -45,6 +45,6 @@ export async function decrypt(session: string | undefined = '') {
 		return payload;
 
 	} catch (error) {
-		console.log('Failed to verify the session');
+		console.log('Failed to verify the session: ', error);
 	}
 }

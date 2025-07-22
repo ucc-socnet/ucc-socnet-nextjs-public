@@ -1,23 +1,24 @@
 'use client';
 import style from './styles.module.css';
 import { useState } from "react";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { auth } from '@/firebase/config';
-import {sessionHandler} from './create_session';
+import { auth, db } from '@/firebase/config';
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { SessionPayload } from './session_payload';
 
 export default function Login() {
   const [gmail, setGmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
 
-  const router = useRouter();
-
   const [signInWithEmailAndPassword, _userCredential, _loading, error] = useSignInWithEmailAndPassword(auth);
+
 
   console.log(_userCredential);
   console.log(_loading);
 
+  const router = useRouter();
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -29,17 +30,39 @@ export default function Login() {
         setPassword('');
         setErrorMsg('');
 
-        const userID: string = res.user.uid;
-        const session_result = await sessionHandler(userID);
+        const username_collection = collection(db, "usernames");
+        const q = query(username_collection, where("email", "==", gmail));
+        const querySnapshot = await getDocs(q);
 
-        if (session_result.success == false) {
-          console.log("Error from sessionHandler: " + session_result.message);
+        if (querySnapshot.empty) {
+          console.log("No matching documents.");
+          return null;
+        }
+
+        const username = querySnapshot.docs[0].id;
+        console.log("Found username: ", username);
+
+        const infos: SessionPayload = {
+          userID: res.user.uid, 
+          username: username, 
+          email: gmail,
+        };
+
+        const session_result = await fetch('/api/session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(infos)
+        });
+
+        const json_ses_res = await session_result.json();
+
+        if (json_ses_res.success == false) {
+          console.log("Error from sessionHandler");
           return;
-        } else if (session_result.success) {
+        } else if (json_ses_res.success) {
           console.log("Successfully created session");
           router.push('/'); // Redirect after login
         }
-
       }
 
     } catch (e: unknown) {

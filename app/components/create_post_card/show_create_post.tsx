@@ -25,14 +25,18 @@ export function ShowCreatePostCard( {onCancel}: { onCancel: () => void }) {
       postId += characters.charAt(randomInd);
     }
 
-      await setDoc(doc(db, "users_posts", postId), {
-        username: "Username12982",
-        userID: "9238402394asdfi2j",
-        postContent: postContent
-      });
+    const res = await fetch('/api/get_session', { method: 'POST' });
+    const data = await res.json();
+    console.log("Session payload:", data);
 
-      alert('Post created.');
-      onCancel();
+    await setDoc(doc(db, "users_posts", postId), {
+      username: data.username,
+      userID: data.userID,
+      postContent: postContent
+    });
+
+    alert('Post created.');
+    onCancel();
 
   };
 

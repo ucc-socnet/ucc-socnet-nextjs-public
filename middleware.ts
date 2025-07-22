@@ -1,30 +1,47 @@
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import { decrypt } from "./app/login/session_manager";
+import { jwtVerify } from "jose";
+
+const secret = new TextEncoder().encode(process.env.JWT_SECRET); // replace if using something else
 
 const protectedRoutes = ["/"];
 const publicRoutes = ["/login"];
 
-export default async function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
   const isProtectedRoute = protectedRoutes.includes(path);
   const isPublicRoute = publicRoutes.includes(path);
 
-  const cookie = cookies();
-  const cookie_value = cookie.get("session")?.value;
-  const session = await decrypt(cookie_value);
+  const token = req.cookies.get("session")?.value;
 
-  console.log("decrypted sesison : ", session);
+  let session: any = null;
 
-  if (isProtectedRoute && !session?.userID) {
-    console.log("session not found redirecting user");
-    return NextResponse.redirect(new URL("/login", req.nextUrl));
+  if (token) {
+    try {
+      const verified = await jwtVerify(token, secret, {
+        algorithms: ["HS256"],
+      });
+      session = verified.payload;
+      console.log("✅ Decoded session:", session);
+    } catch (e) {
+      console.log("❌ Invalid session token");
+    }
   }
 
+  // Redirect if trying to access protected route without login
+  if (isProtectedRoute && !session?.userID) {
+    console.log("🔒 Redirecting to /login");
+    return NextResponse.redirect(new URL("/login", req.url));
+  }
+
+  // Redirect if trying to access login while already logged in
   if (isPublicRoute && session?.userID) {
-    console.log("session not found redirecting user");
-    return NextResponse.redirect(new URL("/", req.nextUrl));
+    console.log("🔄 Redirecting to /");
+    return NextResponse.redirect(new URL("/", req.url));
   }
 
   return NextResponse.next();
 }
+
+export const config = {
+  matcher: ["/((?!_next|favicon.ico).*)"],
+};

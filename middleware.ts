@@ -12,19 +12,21 @@ export async function middleware(req: NextRequest) {
   const isPublicRoute = publicRoutes.includes(path);
 
   const token = req.cookies.get("session")?.value;
+  console.log("token: ", token);
 
   let session: any = null;
 
   if (token) {
+
     try {
-      const verified = await jwtVerify(token, secret, {
-        algorithms: ["HS256"],
-      });
+      const verified = await jwtVerify(token, secret, { algorithms: ["HS256"], });
       session = verified.payload;
       console.log("✅ Decoded session:", session);
+
     } catch (e) {
-      console.log("❌ Invalid session token");
+      console.log("❌ Invalid session token: ", session);
     }
+
   }
 
   // Redirect if trying to access protected route without login

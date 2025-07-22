@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 
-const secret = new TextEncoder().encode(process.env.SESSION_SECRET_KEY); // replace if using something else
+const secretKey = process.env.SESSION_SECRET_KEY;
+const encodedKey = new TextEncoder().encode(secretKey);
 
 const protectedRoutes = ["/"];
 const publicRoutes = ["/login"];
@@ -19,7 +20,7 @@ export async function middleware(req: NextRequest) {
   if (token) {
 
     try {
-      const verified = await jwtVerify(token, secret, { algorithms: ["HS256"], });
+      const verified = await jwtVerify(token, encodedKey, { algorithms: ["HS256"], });
       session = verified.payload;
       console.log("✅ Decoded session:", session);
 

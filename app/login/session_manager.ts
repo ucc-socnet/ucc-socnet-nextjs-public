@@ -17,6 +17,8 @@ export async function createSession(userID: string) {
 	  cookie.set('session', session, {
 	    httpOnly: true,
 	    secure: true,
+	    path: '/',
+	    sameSite: 'lax',
 	    expires: expiresAt,
 	  });
 	} catch (e) {

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 
-const secret = new TextEncoder().encode(process.env.JWT_SECRET); // replace if using something else
+const secret = new TextEncoder().encode(process.env.SESSION_SECRET_KEY); // replace if using something else
 
 const protectedRoutes = ["/"];
 const publicRoutes = ["/login"];

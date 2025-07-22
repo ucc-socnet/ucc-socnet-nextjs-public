@@ -24,7 +24,7 @@ export async function middleware(req: NextRequest) {
       console.log("✅ Decoded session:", session);
 
     } catch (e) {
-      console.log("❌ Invalid session token: ", session);
+      console.log("❌ Invalid session token: ", token);
     }
 
   }

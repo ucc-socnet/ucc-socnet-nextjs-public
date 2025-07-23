@@ -3,24 +3,28 @@ import Navbar from "./components/navbar/navbar"
 import Sidebar from "./components/sidebar/sidebar"
 import CreatePostCard from "./components/create_post_card/create_post_card"
 import PostCard from "./components/post_card/post_card"
-import { auth, db } from '@/firebase/config';
-import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from 'react';
 
 export default function HomePage() {
-  const [posts, setPosts] = useState([]);
+  type Post = {
+    postID: string;
+    postDate: string;
+    username: string;
+    postContent: string;
+    likes: number;
+  };
+
+  const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const snapshot = await getDocs(collection(db, 'users_posts'));
-      const data = snapshot.docs.map(doc => ({
-        postID: doc.id,
-        postDate: doc.data().date_posted,
-        username: doc.data().username,
-        postContent: doc.data().postContent,
-        likes: 12,
-      }));
-      setPosts(data);
+      try {
+        const res = await fetch('/api/get_posts');
+        const data = await res.json();
+        setPosts(data);
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+      }
     };
 
     fetchPosts();

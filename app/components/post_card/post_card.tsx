@@ -1,5 +1,6 @@
 import styles from './styles.module.css'
-import { useState } from 'react';
+import Image from 'next/image';
+// import { useState } from 'react';
 
 interface PostProps {
   username: string;
@@ -27,7 +28,7 @@ export default function Post({ username, postDate, postText, imagePath, likes}: 
 
     {imagePath && (
       <div className={styles.post_image}>
-        <img src={imagePath} alt="Post Image" />
+        <Image src={imagePath} alt="Post Image" />
       </div>
     )}
 

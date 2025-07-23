@@ -33,7 +33,7 @@ export default function HomePage() {
   return (
     <>
       <Navbar />
-      <div className="flex h-screen bg-stone-200">
+      <div className="flex h-[100%] bg-stone-200">
         <Sidebar />
         <div className="posts">
           <CreatePostCard />

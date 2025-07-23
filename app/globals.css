@@ -9,3 +9,8 @@ body {
   background: white;
   position: relative;
 }
+
+.posts {
+  width: 100%;
+  padding: 0px 10%;
+}

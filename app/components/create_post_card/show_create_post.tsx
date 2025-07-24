@@ -1,11 +1,14 @@
-'use client'
+// 'use client'
+
 import { useState } from 'react';
+import { useRouter } from 'next/navigation'
 import { db } from '@/firebase/config';
 import { setDoc, doc } from 'firebase/firestore'
 import styles from './styles.module.css'
 
 export function ShowCreatePostCard( {onCancel}: { onCancel: () => void }) {
 
+  const router = useRouter();
   const [postContent, setPostContent] = useState('');
 
   // const handlePostUpload = async()=> {
@@ -40,7 +43,6 @@ export function ShowCreatePostCard( {onCancel}: { onCancel: () => void }) {
 
     alert('Post created.');
     onCancel();
-
   };
 
   function addImageArea() {

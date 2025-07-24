@@ -4,6 +4,7 @@ import Sidebar from "./components/sidebar/sidebar"
 import CreatePostCard from "./components/create_post_card/create_post_card"
 import PostCard from "./components/post_card/post_card"
 import { useEffect, useState } from 'react';
+// import { DisplayPosts } from './display_post_cards';
 
 export default function HomePage() {
   type Post = {
@@ -16,6 +17,7 @@ export default function HomePage() {
 
   const [posts, setPosts] = useState<Post[]>([]);
 
+  // fetch the posts by calling the get_posts api
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -47,8 +49,9 @@ export default function HomePage() {
               postText={post.postContent}
               imagePath=""
               likes={post.likes}
-            />))}
-     
+            />))}     
+
+          {/*{ DisplayPosts() }*/}
         </div>
       </div>
     </>

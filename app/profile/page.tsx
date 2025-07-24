@@ -3,6 +3,7 @@ import styles from './styles.module.css';
 import NavBar from '../components/navbar/navbar';
 import PostCard from "../components/post_card/post_card"
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 export default function Profile() {
     type Post = {
@@ -43,17 +44,38 @@ export default function Profile() {
     <>
 
     <NavBar />
+        
     <div className={styles.info_container}>
         <div className={styles.profile}>
             <div className={styles.cover_profile}></div>
-            <div className={styles.profile_photo}></div>
+            {/*<div className={styles.profile_photo}></div>*/}
         </div>
 
-        <div className="flex">
+        <div className="flex justify-center gap-x-10 relative">
 
-            <div className={styles.about_me}>
+          <div className="min-h-screen">
+            <div className="sticky top-20">
+            <div className={`mt-10 ${styles.bio}`}>
               <h1 className="text-2xl">{username}</h1>
+              <p className="mt-10 text-justify">Lorem ipsum is a dummy or placeholder text commonly used in graphic design, publishing, and web development. Its purpose is to permit a page layout to be designed, independently of the copy that will subsequently populate it,</p>                  
             </div>
+ 
+            <div className="shadow-md font-medium text-lg p-5 mt-5 bg-white rounded-xl flex justify-between">
+              Friends
+              <Link href="/" className="text-blue-500">See more</Link>
+            </div>
+
+            <div className="shadow-md font-medium text-lg p-5 mt-5 bg-white rounded-xl flex justify-between">
+              Groups
+              <Link href="/" className="text-blue-500">See more</Link>
+            </div>
+
+            <div className="shadow-md font-medium text-lg p-5 mt-5 bg-white rounded-xl flex justify-between">
+              Photos
+              <Link href="/" className="text-blue-500">See more</Link>
+            </div>
+            </div>
+          </div>
 
             <div className="posts mt-10">
               {posts.map((post) => (

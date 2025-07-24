@@ -8,11 +8,9 @@
 body {
   background: white;
   position: relative;
-  height: auto;
 }
 
 .posts {
   width: 100%;
   padding: 0px 10%;
-  height: auto;
 }

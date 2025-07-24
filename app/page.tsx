@@ -33,8 +33,10 @@ export default function HomePage() {
   return (
     <>
       <Navbar />
-      <div className="flex h-[100%] bg-stone-200">
+     
+      <div className="flex h-screen bg-stone-200">
         <Sidebar />
+     
         <div className="posts">
           <CreatePostCard />
           {posts.map((post) => (
@@ -43,10 +45,10 @@ export default function HomePage() {
               username={post.username}
               postDate={post.postDate}
               postText={post.postContent}
-              imagePath="" // update if you store image URL
+              imagePath=""
               likes={post.likes}
-            />
-          ))}
+            />))}
+     
         </div>
       </div>
     </>

@@ -1,4 +1,5 @@
 import styles from './navbar.module.css';
+import Link from 'next/link';
 
 export default function Navbar() {
 	return (
@@ -11,7 +12,7 @@ export default function Navbar() {
 			</div>
 
 			<div className={styles.nav}>
-				<a href="../main-page-example/index.html"><i className="fa-solid fa-house"></i></a>
+				<Link href="/"><i className="fa-solid fa-house"></i></Link>
 				<a href="#"><i className="fa-solid fa-user-group"></i></a>
 				<a href="#"><i className="fa-solid fa-people-group"></i></a>
 				<i className="fas fa-bell"></i>

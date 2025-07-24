@@ -1,0 +1,42 @@
+.info_container {
+	height: auto;
+	padding: 10px 60px;
+	background-color: #ededed;
+}
+
+.profile {
+	position: relative;
+	width: 100%;
+	height: auto;
+	background-color: yellow;
+}
+
+
+.profile .profile_photo {
+	position: absolute;
+	left: 10%; top: 70%;
+	/*z-index: 9999;*/
+
+	width: 200px; height: 200px; 
+	/*padding: 100px;*/
+	border-radius: 50%;
+	background-color: red;
+}
+
+.profile .cover_profile {
+	width: auto;
+	height: 400px;
+	/*background-color: dimgray;*/
+	background-image: linear-gradient(to bottom left, #859F3D, #F9B572);
+}
+
+.about_me {
+	text-align: center;
+	margin-top: 100px;
+	height: 400px; width: 400px;
+	padding: 20px;
+	box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+	border-radius: 20px;
+	background-color: white;
+	flex-shrink: 0;
+}

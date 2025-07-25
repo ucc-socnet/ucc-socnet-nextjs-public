@@ -46,6 +46,7 @@ export default function Profile() {
       post_cards = posts.map((post) => (
         <PostCard
           key={post.postID}
+          postID={post.postID}
           username={post.username}
           postDate={post.postDate}
           postText={post.postContent}

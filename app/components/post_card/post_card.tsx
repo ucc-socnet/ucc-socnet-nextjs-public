@@ -3,7 +3,7 @@ import Image from 'next/image';
 // import { useState } from 'react';
 
 import { db } from '@/firebase/config';
-import { collection, updateDoc, doc } from "firebase/firestore";
+import { updateDoc, doc } from "firebase/firestore";
 
 interface PostProps {
   postID: string;
@@ -15,7 +15,7 @@ interface PostProps {
 }
 
 export default function Post({ postID, username, postDate, postText, imagePath, likes}: PostProps) {
-  const testLike = async (id)=> {
+  const testLike = async (id: string)=> {
     console.log("Like button is clicked.");
     console.log(`Post ID = ${id}`);
 

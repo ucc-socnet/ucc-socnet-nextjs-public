@@ -44,6 +44,7 @@ export default function HomePage() {
           {posts.map((post) => (
             <PostCard
               key={post.postID}
+
               postID={post.postID}
               username={post.username}
               postDate={post.postDate}

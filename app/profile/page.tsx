@@ -40,6 +40,24 @@ export default function Profile() {
     fetchPosts();
     }, [posts]);
 
+    let post_cards;
+
+    if (posts && posts.length > 0) {
+      post_cards = posts.map((post) => (
+        <PostCard
+          key={post.postID}
+          username={post.username}
+          postDate={post.postDate}
+          postText={post.postContent}
+          imagePath=""
+          likes={post.likes}
+        />))
+    } else {
+      post_cards = <div className="p-5 bg-white w-150 font-medium sticky top-20 rounded-xl shadow-md">No posts created.</div>
+    }
+
+
+
     return (
     <>
 
@@ -51,7 +69,7 @@ export default function Profile() {
             {/*<div className={styles.profile_photo}></div>*/}
         </div>
 
-        <div className="flex justify-center gap-x-10 relative">
+        <div className="flex justify-around gap-x-10 relative">
 
           <div className="min-h-screen">
             <div className="sticky top-20">
@@ -78,17 +96,8 @@ export default function Profile() {
           </div>
 
             <div className="posts mt-10">
-              {posts.map((post) => (
-                <PostCard
-                  key={post.postID}
-                  username={post.username}
-                  postDate={post.postDate}
-                  postText={post.postContent}
-                  imagePath=""
-                  likes={post.likes}
-                />))}
+              {post_cards}
             </div>
-
 
         </div>
 

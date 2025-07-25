@@ -8,7 +8,7 @@ if (!process.env.SESSION_SECRET_KEY) {
   throw new Error("JWT secret key not found.");
 }
 
-const protectedRoutes = ["/"];
+const protectedRoutes = ["/", "/profile"];
 const publicRoutes = ["/login"];
 
 export async function middleware(req: NextRequest) {

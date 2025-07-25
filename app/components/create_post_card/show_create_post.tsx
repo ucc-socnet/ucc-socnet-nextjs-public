@@ -1,6 +1,6 @@
 // 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { db } from '@/firebase/config';
 import { setDoc, doc } from 'firebase/firestore'
 import styles from './styles.module.css'
@@ -8,8 +8,28 @@ import styles from './styles.module.css'
 export function ShowCreatePostCard( {onCancel}: { onCancel: () => void }) {
 
   const [postContent, setPostContent] = useState('');
+  const [username, setUsername] = useState('');
+  const [userID, setUserID] = useState('');
+  const [current_date, setCurrent_Date] = useState('');
 
-  // const handlePostUpload = async()=> {
+  useEffect(() => {
+    async function fetchSession() {
+      try {
+        const res = await fetch('/api/get_session', { method: 'POST' });
+        const data = await res.json();
+        console.log("Session payload:", data);
+        setUsername(data.username);
+        setUserID(data.userID);
+      } catch (error) {
+        console.log(`error on getting session: ${error}`);
+      }
+    }
+
+    fetchSession();
+
+    setCurrent_Date(new Date().toISOString());
+  }, []);
+
   const handlePostUpload = async(event: React.FormEvent<HTMLFormElement>)=> {
     event.preventDefault();
 
@@ -26,17 +46,11 @@ export function ShowCreatePostCard( {onCancel}: { onCancel: () => void }) {
       postId += characters.charAt(randomInd);
     }
 
-    const res = await fetch('/api/get_session', { method: 'POST' });
-    const data = await res.json();
-    console.log("Session payload:", data);
-
-    const date_created = new Date().toISOString();
-
     await setDoc(doc(db, "users_posts", postId), {
-      username: data.username,
-      userID: data.userID,
+      username: username,
+      userID: userID,
       postContent: postContent,
-      date_posted: date_created,
+      date_posted: current_date,
     });
 
     alert('Post created.');
@@ -85,8 +99,8 @@ export function ShowCreatePostCard( {onCancel}: { onCancel: () => void }) {
     <div className={styles.user_info}>
       <div className={styles.avatar}></div>
       <div className={styles.username_date}>
-        <div className={styles.username}>Username12982</div>
-        <div className={styles.date}>On July 2, 2025 Thursday</div>
+        <div className={styles.username}>{username}</div>
+        <div className={styles.date}>{current_date}</div>
       </div>
     </div>
 

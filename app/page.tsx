@@ -39,7 +39,7 @@ export default function HomePage() {
       <div className="flex h-auto bg-stone-200">
         <Sidebar />
      
-        <div className="posts">
+        <div className="posts m-auto">
           <CreatePostCard />
           {posts.map((post) => (
             <PostCard

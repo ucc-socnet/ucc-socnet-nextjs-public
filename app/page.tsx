@@ -44,14 +44,13 @@ export default function HomePage() {
           {posts.map((post) => (
             <PostCard
               key={post.postID}
+              postID={post.postID}
               username={post.username}
               postDate={post.postDate}
               postText={post.postContent}
               imagePath=""
               likes={post.likes}
             />))}     
-
-          {/*{ DisplayPosts() }*/}
         </div>
       </div>
     </>

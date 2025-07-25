@@ -69,7 +69,7 @@ export default function Profile() {
             {/*<div className={styles.profile_photo}></div>*/}
         </div>
 
-        <div className="flex justify-around gap-x-10 relative">
+        <div className="flex justify-around relative">
 
           <div className="min-h-screen">
             <div className="sticky top-20">

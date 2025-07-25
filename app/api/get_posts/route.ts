@@ -27,7 +27,7 @@ export async function GET(request: Request) {
       postDate: doc.data().date_posted,
       username: doc.data().username,
       postContent: doc.data().postContent,
-      likes: 12,
+      likes: (doc.data().likes) ? doc.data().likes : 0,
     }));
 
 

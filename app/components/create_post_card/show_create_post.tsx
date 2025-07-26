@@ -1,6 +1,6 @@
 // 'use client'
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { db } from '@/firebase/config';
 import { setDoc, doc } from 'firebase/firestore'
 import styles from './styles.module.css'
@@ -12,7 +12,24 @@ export function ShowCreatePostCard( {onCancel}: { onCancel: () => void }) {
   const [userID, setUserID] = useState('');
   const [current_date, setCurrent_Date] = useState('');
 
+  const txtAreaRef = useRef<HTMLTextAreaElement | null>(null);
+
   useEffect(() => {
+    const txtArea = txtAreaRef.current;
+    if (!txtArea) return;
+
+    const resize = () => {
+      txtArea.style.height = 'auto'; // reset first
+      txtArea.style.height = `${txtArea.scrollHeight}px`;
+    };
+
+    resize(); // initial resize if there's default content
+    txtArea.addEventListener('keydown', resize);
+
+    return () => txtArea.removeEventListener('input', resize);
+  }, []);
+
+  useEffect(()=> {
     async function fetchSession() {
       try {
         const res = await fetch('/api/get_session', { method: 'POST' });
@@ -107,10 +124,11 @@ export function ShowCreatePostCard( {onCancel}: { onCancel: () => void }) {
     <div className={styles.text_input_container} id="text_input_container">
       <textarea 
         className={styles.txt_area} 
-        id={styles.txt_area} 
+        id="txt_area" 
         value={postContent} 
         onChange={(e) => setPostContent(e.target.value)}
         name="postContent" 
+        rows={5}
         placeholder="What's on your mind?">
       </textarea>
   

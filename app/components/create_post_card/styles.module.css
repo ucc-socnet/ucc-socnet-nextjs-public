@@ -11,9 +11,9 @@
 
 #create_post_card_popup {
 	position: absolute;
-	top: 10%;
+	top: 5%;
   left: 50%;
-  transform: translate(-50%, -10%);
+  transform: translate(-50%, 5%);
 }
 
 /* used when the user clicked the create post */
@@ -96,13 +96,13 @@
 	margin: 10px 0px;
 }
 
-.text_input_container textarea {
+.txt_area {
 	width: 100%;
 	padding: 10px;
-	max-height: 500px;
-	border-radius: 10px;
+
 	overflow: hidden;
 	resize: none;
+	border-radius: 10px;
 	background-color: #ededed;
 }
 

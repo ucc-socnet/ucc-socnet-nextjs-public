@@ -128,7 +128,7 @@ export function ShowCreatePostCard( {onCancel}: { onCancel: () => void }) {
         value={postContent} 
         onChange={(e) => setPostContent(e.target.value)}
         name="postContent" 
-        rows={5}
+        rows={7}
         placeholder="What's on your mind?">
       </textarea>
   

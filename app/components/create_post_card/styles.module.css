@@ -11,9 +11,9 @@
 
 #create_post_card_popup {
 	position: absolute;
-	top: 5%;
+	top: 3%;
   left: 50%;
-  transform: translate(-50%, 5%);
+  transform: translate(-50%, 3%);
 }
 
 /* used when the user clicked the create post */

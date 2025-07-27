@@ -30,7 +30,6 @@ export async function GET(request: Request) {
       likes: (doc.data().likes) ? doc.data().likes : 0,
     }));
 
-
     return NextResponse.json(data);
   } catch (error) {
     return NextResponse.json({ error: `'Failed to fetch posts: ${error}'` }, { status: 500 });

@@ -1,7 +1,5 @@
 import styles from './styles.module.css'
 import Image from 'next/image';
-// import { useState } from 'react';
-
 import { db } from '@/firebase/config';
 import { updateDoc, doc } from "firebase/firestore";
 
@@ -14,16 +12,7 @@ interface PostProps {
   likes: number;
 }
 
-export default function Post({ postID, username, postDate, postText, imagePath, likes}: PostProps) {
-  const testLike = async (id: string)=> {
-    console.log("Like button is clicked.");
-    console.log(`Post ID = ${id}`);
-
-    await updateDoc(doc(db, "users_posts", id), {
-      likes: likes + 1,
-    });
-
-  };
+export default function Post({ postID, username, postDate, postText, imagePath, likes, onLike}: PostProps) {
 
  return (
   <div className={styles.post} id={postID}>
@@ -50,8 +39,8 @@ export default function Post({ postID, username, postDate, postText, imagePath, 
       <span>
         <i className={styles.text_orange + " fas fa-circle"}></i> {likes}
       </span>
-      <span className="cursor-pointer" onClick={()=>{testLike(postID)}}>Like</span>
-      <span className="cursor-pointer" onClick={()=>{testLike(postID)}}>Comment</span>
+      <span className="cursor-pointer" onClick={()=>{onLike(postID, likes)}}>Like</span>
+      <span className="cursor-pointer" onClick={()=>{onLike(postID, likes)}}>Comment</span>
     </div>
   </div>
 );

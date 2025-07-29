@@ -39,12 +39,24 @@ export default function Profile() {
 
   fetchPosts();
   }, []);
+ 
+  const testLike = async (id: string, likes: number)=> {
+    console.log("Like button is clicked.");
+    console.log(`Post ID = ${id} ${likes}`);
 
+    // await updateDoc(doc(db, "users_posts", id), {
+    //   likes: likes + 1,
+    // });
+
+    // updateUserLikes(userID, id);
+    // fetchPosts();
+  };
+  
   let post_cards;
-
   if (posts && posts.length > 0) {
     post_cards = posts.map((post) => (
       <PostCard
+
         key={post.postID}
         postID={post.postID}
         username={post.username}
@@ -52,6 +64,7 @@ export default function Profile() {
         postText={post.postContent}
         imagePath=""
         likes={post.likes}
+        onLike={()=>{ testLike(post.postID, post.likes) }}
       />))
   } else {
     post_cards = <div className="p-5 bg-white w-[100%] font-medium sticky top-20 rounded-xl shadow-md">No posts created.</div>

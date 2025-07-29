@@ -60,7 +60,19 @@ export default function Signup() {
         userID: userId
       });
 
-      router.replace('/');
+      // new collection for users (wip)
+      // user's likes/comments will together with the user's detail
+
+      // const userDocRef = doc(collection(db, "userID"));
+      // await setDoc(userDocRef, {
+      //   email: gmail,
+      //   userID: userId
+      // });
+
+      // const userLikesCollection = collection(userDocRef, "user_likes");
+      // const userCommentsCollection = collection(userDocRef, "user_comments");
+
+      router.push('/');
     } catch (e: unknown) {
       const message = e instanceof Error ? e.message : String(e);
       alert('Verification failed: ' + message);

@@ -1,7 +1,7 @@
 import styles from './styles.module.css'
 import Image from 'next/image';
-import { db } from '@/firebase/config';
-import { updateDoc, doc } from "firebase/firestore";
+// import { db } from '@/firebase/config';
+// import { updateDoc, doc } from "firebase/firestore";
 
 interface PostProps {
   postID: string;
@@ -10,6 +10,7 @@ interface PostProps {
   postText: string;
   imagePath?: string;
   likes: number;
+  onLike: (id: string, likes: number)=>void;
 }
 
 export default function Post({ postID, username, postDate, postText, imagePath, likes, onLike}: PostProps) {
@@ -27,7 +28,7 @@ export default function Post({ postID, username, postDate, postText, imagePath, 
       <div className={styles.report}>Report</div>
     </div>
 
-    <div className={styles.post_text}>{postText}</div>
+    <div className={` text-sm sm:text-sm md:text-base md:w-auto lg:text-base ${styles.post_text}`}>{postText}</div>
 
     {imagePath && (
       <div className={styles.post_image}>

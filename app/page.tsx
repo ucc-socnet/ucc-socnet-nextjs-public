@@ -19,6 +19,20 @@ export default function HomePage() {
   };
 
   const [posts, setPosts] = useState<Post[]>([]);
+  // const [userID, setUserID] = useState('');
+  // const [username, setUsername] = useState('');
+
+  // useEffect( ()=>{
+  //   const user_res = await fetch('/api/get_session', { method: 'POST' });
+  //   const data = await user_res.json();
+  //   setUserID(data.userID);
+  // }, []);
+
+  // const updateUserLikes = async (uid: string, pid: string)=> {
+  //   await updateDoc(doc(db, "users_likes", uid), {
+  //     postID: pid,
+  //   });    
+  // }
 
   const fetchPosts = async () => {
     try {
@@ -30,7 +44,7 @@ export default function HomePage() {
     }
   };
 
-  const testLike = async (id: string, likes: int)=> {
+  const testLike = async (id: string, likes: number)=> {
     console.log("Like button is clicked.");
     console.log(`Post ID = ${id}`);
 
@@ -38,6 +52,7 @@ export default function HomePage() {
       likes: likes + 1,
     });
 
+    // updateUserLikes(userID, id);
     fetchPosts();
   };
   
@@ -50,7 +65,7 @@ export default function HomePage() {
       <div className="flex h-auto bg-stone-200">
         <Sidebar />
      
-        <div className="posts m-auto">
+        <div className="posts m-10 lg:w-auto">
           <CreatePostCard />
           {posts.map((post) => (
             <PostCard
@@ -63,6 +78,7 @@ export default function HomePage() {
               imagePath=""
               likes={post.likes}
               onLike={()=>{ testLike(post.postID, post.likes) }}
+
             />))}
         </div>
       </div>

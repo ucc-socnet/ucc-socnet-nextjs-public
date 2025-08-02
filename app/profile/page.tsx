@@ -5,6 +5,9 @@ import PostCard from "../components/post_card/post_card"
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
+import { db } from '@/firebase/config';
+import { updateDoc, getDoc, setDoc, doc } from "firebase/firestore";
+
 export default function Profile() {
   type Post = {
     postID: string;
@@ -17,41 +20,57 @@ export default function Profile() {
   const [username, setUsername] = useState('');
   const [posts, setPosts] = useState<Post[]>([]);
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
+  const fetchPosts = async () => {
+    try {
+      const user_res = await fetch('/api/get_session', { method: 'POST' });
+      const data = await user_res.json();
+      setUsername(data.username);
+      // console.log("Session payload:", data);
 
-        const user_res = await fetch('/api/get_session', { method: 'POST' });
-        const data = await user_res.json();
-        setUsername(data.username);
-        // console.log("Session payload:", data);
+      const posts_res = await fetch(`/api/get_posts?userID=${data.userID}`);
 
-        const posts_res = await fetch(`/api/get_posts?userID=${data.userID}`);
-
-        const posts_data = await posts_res.json();
-        setPosts(posts_data);
-        console.log(posts_data);
+      const posts_data = await posts_res.json();
+      setPosts(posts_data);
+      console.log(posts_data);
 
     } catch (error) {
       console.error('Error fetching posts:', error);
     }
   };
 
-  fetchPosts();
-  }, []);
+  useEffect(() => { fetchPosts(); }, []);
  
+  const updateUserLikes = async (userID: string, postID: string, likes: number)=> {
+    const isExist = await getDoc(doc(db, "usernames", username, "user_likes", postID));
+
+    if (isExist.exists()) {
+      console.log("already liked this post");
+      return false;
+    } else {
+      await setDoc(doc(db, "usernames", username, "user_likes", postID), {
+        date_liked: new Date().toISOString(),
+      });
+
+      console.log("added to user's likes");
+
+      await updateDoc(doc(db, "users_posts", postID), {
+        likes: likes + 1,
+      });
+
+      fetchPosts();
+      return true;
+    }
+
+  }
+
   const testLike = async (id: string, likes: number)=> {
     console.log("Like button is clicked.");
-    console.log(`Post ID = ${id} ${likes}`);
+    console.log(`Post ID = ${id}`);
 
-    // await updateDoc(doc(db, "users_posts", id), {
-    //   likes: likes + 1,
-    // });
-
-    // updateUserLikes(userID, id);
-    // fetchPosts();
+    const res = updateUserLikes("", id, likes);
+    console.log(res);
   };
-  
+
   let post_cards;
   if (posts && posts.length > 0) {
     post_cards = posts.map((post) => (

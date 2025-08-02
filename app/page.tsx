@@ -5,7 +5,7 @@ import CreatePostCard from "./components/create_post_card/create_post_card"
 import PostCard from "./components/post_card/post_card"
 import { useEffect, useState } from 'react';
 import { db } from '@/firebase/config';
-import { updateDoc, doc } from "firebase/firestore";
+import { updateDoc, getDoc, setDoc, doc } from "firebase/firestore";
 
 // import { DisplayPosts } from './display_post_cards';
 
@@ -20,19 +20,21 @@ export default function HomePage() {
 
   const [posts, setPosts] = useState<Post[]>([]);
   // const [userID, setUserID] = useState('');
-  // const [username, setUsername] = useState('');
+  const [username, setUsername] = useState('');
 
-  // useEffect( ()=>{
-  //   const user_res = await fetch('/api/get_session', { method: 'POST' });
-  //   const data = await user_res.json();
-  //   setUserID(data.userID);
-  // }, []);
+  useEffect(() => {
+  const fetchSession = async () => {
+    try {
+      const user_res = await fetch('/api/get_session', { method: 'POST' });
+      const data = await user_res.json();
+      setUsername(data.username);
+    } catch (err) {
+      console.error("Error fetching session:", err);
+    }
+  };
 
-  // const updateUserLikes = async (uid: string, pid: string)=> {
-  //   await updateDoc(doc(db, "users_likes", uid), {
-  //     postID: pid,
-  //   });    
-  // }
+    fetchSession();
+  }, []);
 
   const fetchPosts = async () => {
     try {
@@ -44,16 +46,35 @@ export default function HomePage() {
     }
   };
 
+  const updateUserLikes = async (userID: string, postID: string, likes: number)=> {
+    const isExist = await getDoc(doc(db, "usernames", username, "user_likes", postID));
+
+    if (isExist.exists()) {
+      console.log("already liked this post");
+      return false;
+    } else {
+      await setDoc(doc(db, "usernames", username, "user_likes", postID), {
+        date_liked: new Date().toISOString(),
+      });
+
+      console.log("added to user's likes");
+
+      await updateDoc(doc(db, "users_posts", postID), {
+        likes: likes + 1,
+      });
+
+      fetchPosts();
+      return true;
+    }
+
+  }
+
   const testLike = async (id: string, likes: number)=> {
     console.log("Like button is clicked.");
     console.log(`Post ID = ${id}`);
 
-    await updateDoc(doc(db, "users_posts", id), {
-      likes: likes + 1,
-    });
-
-    // updateUserLikes(userID, id);
-    fetchPosts();
+    const res = updateUserLikes("", id, likes);
+    console.log(res);
   };
   
   useEffect(() => { fetchPosts(); }, []);

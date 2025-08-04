@@ -8,6 +8,7 @@ export async function GET(request: Request) {
 
     const url = new URL(request.url);
     const param = url.searchParams.get("userID");
+    console.log("userID in get posts: ", param);
 
     // if the param is empty display all
     // if not, display posts based on userID param

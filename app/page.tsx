@@ -46,6 +46,8 @@ export default function HomePage() {
     }
   };
 
+  // const posts_res = await fetch(`/api/get_posts?userID=${data.userID}`);
+
   const updateUserLikes = async (userID: string, postID: string, likes: number)=> {
     const isExist = await getDoc(doc(db, "usernames", username, "user_likes", postID));
 
@@ -79,6 +81,8 @@ export default function HomePage() {
   
   useEffect(() => { fetchPosts(); }, []);
 
+  // const onUserProfile = ()=> {}
+
   return (
     <>
       <Navbar />
@@ -86,7 +90,7 @@ export default function HomePage() {
       <div className="flex h-auto bg-stone-200">
         <Sidebar />
      
-        <div className="posts m-10 lg:w-auto">
+        <div className="posts lg:w-auto lg:mx-50 mx-10">
           <CreatePostCard />
           {posts.map((post) => (
             <PostCard

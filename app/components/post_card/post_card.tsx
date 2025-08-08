@@ -56,8 +56,9 @@ export default function Post({ postID, username, postDate, postText, imagePath, 
       <span>
         <i className={styles.text_orange + " fas fa-circle"}></i> {likes}
       </span>
-      <span className="cursor-pointer text-blue-500" onClick={()=>{onLike(postID, likes)}}>Like</span>
-      <span className="cursor-pointer" onClick={()=>{onLike(postID, likes)}}>Comment</span>
+      <span className="cursor-pointer text-blue-500" 
+        onClick={()=>{onLike(postID, likes)}}>Like</span>
+      <span className="cursor-pointer">Comment</span>
     </div>
   </div>
 );

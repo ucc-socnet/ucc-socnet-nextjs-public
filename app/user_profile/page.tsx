@@ -21,6 +21,7 @@ type Post = {
 function ProfileContent() {
   const searchParams = useSearchParams();
   const [username, setUsername] = useState('');
+  const [userBio, setUserBio] = useState('');
   const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
@@ -35,6 +36,9 @@ function ProfileContent() {
       const user_doc = await getDoc(doc(db, "usernames", username));
       if (user_doc.exists()) {
         const uid = user_doc.data();
+        
+        setUserBio(uid.bio);
+
         const posts_res = await fetch(`/api/get_posts?userID=${uid.userID}`);
         const posts_data = await posts_res.json();
         setPosts(posts_data);
@@ -109,9 +113,11 @@ function ProfileContent() {
             <div className="sticky top-20">
               <div className={`mt-10 ${styles.bio}`}>
                 <h1 className="text-2xl">{username}</h1>
-                <p className="mt-10 text-justify">
-                  Lorem ipsum is a dummy or placeholder text...
+
+                <p className="bio mt-10 text-justify">
+                  {userBio}
                 </p>
+
               </div>
 
               <div className="shadow-md font-medium text-lg p-5 mt-5 bg-white rounded-xl flex justify-between">

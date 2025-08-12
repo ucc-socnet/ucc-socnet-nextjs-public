@@ -103,36 +103,49 @@ function ProfileContent() {
   return (
     <>
       <NavBar />
-      <div className={styles.info_container}>
-        <div className={styles.profile}>
-          <div className={styles.cover_profile}></div>
+      <div className={`h-screen md:h-auto lg:h-auto bg-stone-200`}>
+
+        <div className={`relative w-[100%] h-50 md:h-100 md:px-5 lg:pt-5`}>
+          <div className={`
+            w-[100%] h-[100%]
+            bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%
+            `}></div>
         </div>
 
-        <div className="flex relative mx-20">
-          <div className="min-h-screen">
-            <div className="sticky top-20">
-              <div className={`mt-10 ${styles.bio}`}>
-                <h1 className="text-2xl">{username}</h1>
+        {/* main container */}
+        <div className="md:flex lg:flex relative mx-5 md:mx-20 lg:mx-20">
 
+          {/* this for bio main container*/}
+          <div className="md:min-h-screen lg:min-h-screen w-[100%]">
+            <div className="md:sticky lg:sticky top-20 shrink-0 ">
+
+              <div className={`mt-5 md:mt-5 lg:mt-5 w-100% text-center shadow-md rounded-md shrink-0 bg-white p-5`}>
+                <h1 className="text-2xl">{username}</h1>
                 <p className="mt-10 text-justify">
                   {userBio ? userBio : 'no bio'}
                 </p>
-
               </div>
 
-              <div className="shadow-md font-medium text-lg p-5 mt-5 bg-white rounded-xl flex justify-between">
-                Friends <Link href="/" className="text-blue-500">See more</Link>
+              {/* for friends button and stuff */}
+              <div className=" md:block mt-2 justify-between">
+                <div className="w-[100%] mt-2 md:mt-5 shadow-md text-sm md:text-lg p-5 bg-white rounded-xl flex items-center justify-between">
+                  <p>Friends</p> 
+                  <Link href="/" className="text-blue-500">See more</Link>
+                </div>
+                <div className=" w-[100%] mt-2 md:mt-5 shadow-md text-sm md:text-lg p-5 bg-white rounded-xl flex items-center justify-between">
+                  <p>Groups</p> 
+                  <Link href="/" className="text-blue-500">See more</Link>
+                </div>
+                <div className=" w-[100%] mt-2 md:mt-5 shadow-md text-sm md:text-lg p-5 bg-white rounded-xl flex items-center justify-between">
+                  <p>Photos</p> 
+                  <Link href="/" className="text-blue-500">See more</Link>
+                </div>
               </div>
-              <div className="shadow-md font-medium text-lg p-5 mt-5 bg-white rounded-xl flex justify-between">
-                Groups <Link href="/" className="text-blue-500">See more</Link>
-              </div>
-              <div className="shadow-md font-medium text-lg p-5 mt-5 bg-white rounded-xl flex justify-between">
-                Photos <Link href="/" className="text-blue-500">See more</Link>
-              </div>
+
             </div>
           </div>
 
-          <div className="mt-10 mx-10 w-[100%]">{post_cards}</div>
+          <div className="mt-5 md:mx-10 w-[100%]">{post_cards}</div>
         </div>
       </div>
     </>

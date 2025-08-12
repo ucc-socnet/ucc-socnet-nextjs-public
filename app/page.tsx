@@ -90,7 +90,7 @@ export default function HomePage() {
       <div className="md:flex lg:flex h-auto bg-stone-200 w-screen">
         <Sidebar />
      
-        <div className="posts mx-3 lg:mx-70 lg:w-[100%]">
+        <div className="posts mx-3 md:mx-30 md:w-[100%] lg:mx-70 ">
           <CreatePostCard />
           {posts.map((post) => (
             <PostCard

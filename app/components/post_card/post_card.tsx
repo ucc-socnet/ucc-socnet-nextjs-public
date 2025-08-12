@@ -32,7 +32,7 @@ export default function Post({ postID, username, postDate, postText, imagePath, 
   // };
 
  return (
-  <div className={styles.post} id={postID}>
+  <div className={`${styles.post}`} id={postID}>
     <div className={styles.post_header}>
       <div className={styles.user_info}>
         <div className={styles.avatar}></div>
@@ -56,9 +56,15 @@ export default function Post({ postID, username, postDate, postText, imagePath, 
       <span>
         <i className={styles.text_orange + " fas fa-circle"}></i> {likes}
       </span>
-      <span className="cursor-pointer text-blue-500" 
-        onClick={()=>{onLike(postID, likes)}}>Like</span>
-      <span className="cursor-pointer">Comment</span>
+      <span className="cursor-pointer text-blue-500 flex items-center" 
+        onClick={()=>{onLike(postID, likes)}}>
+        <i className="text-xl fa-solid fa-thumbs-up mr-2"></i>
+        <p>Like</p>  
+      </span>
+      <span className="cursor-pointer flex items-center">
+        <i className="fa-solid fa-comment mr-2"></i>
+        <p>Comment</p>
+      </span>
     </div>
   </div>
 );

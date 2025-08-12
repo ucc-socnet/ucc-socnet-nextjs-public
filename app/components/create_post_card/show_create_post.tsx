@@ -1,33 +1,19 @@
 // 'use client'
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { db } from '@/firebase/config';
 import { setDoc, doc } from 'firebase/firestore'
 import styles from './styles.module.css'
+// import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 export function ShowCreatePostCard( {onCancel}: { onCancel: () => void }) {
 
+  // const [isUploadWithImage, setIsUploadWithImage] = useState(false);
+  // const [postImgURL, setPostImgURL] = useState('');
   const [postContent, setPostContent] = useState('');
   const [username, setUsername] = useState('');
   const [userID, setUserID] = useState('');
   const [current_date, setCurrent_Date] = useState('');
-
-  const txtAreaRef = useRef<HTMLTextAreaElement | null>(null);
-
-  useEffect(() => {
-    const txtArea = txtAreaRef.current;
-    if (!txtArea) return;
-
-    const resize = () => {
-      txtArea.style.height = 'auto'; // reset first
-      txtArea.style.height = `${txtArea.scrollHeight}px`;
-    };
-
-    resize(); // initial resize if there's default content
-    txtArea.addEventListener('keydown', resize);
-
-    return () => txtArea.removeEventListener('input', resize);
-  }, []);
 
   useEffect(()=> {
     async function fetchSession() {
@@ -47,7 +33,7 @@ export function ShowCreatePostCard( {onCancel}: { onCancel: () => void }) {
     setCurrent_Date(new Date().toISOString());
   }, []);
 
-  const handlePostUpload = async(event: React.FormEvent<HTMLFormElement>)=> {
+  const handlePostUpload = async (event: React.FormEvent<HTMLFormElement>)=> {
     event.preventDefault();
 
     if (postContent == '') {
@@ -69,6 +55,31 @@ export function ShowCreatePostCard( {onCancel}: { onCancel: () => void }) {
       postContent: postContent,
       date_posted: current_date,
     });
+    
+    // firebase storage is a fucking paywall
+    // if (isUploadWithImage) {
+    //   const formData = new FormData(event.currentTarget);
+    //   const file = formData.get('post-image');
+
+    //   if (file) console.log(file);
+
+    //   const storageRef = ref(storage, `images/${file.name}`);
+    //   const uploadTask = uploadBytesResumable(storageRef, file);
+
+    //   uploadTask.on('state_changed', 
+    //     (snapshot) => {
+    //       console.log(snapshot);
+    //     }, (error) => {
+    //       alert(error); console.error(error);
+    //     }, ()=> {
+    //       getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+    //         await updateDoc(doc(db, 'users_posts', postId), {
+    //           img_url: downloadURL,
+    //         });
+    //       })
+    //     }
+    //   )
+    // }
 
     alert('Post created.');
     onCancel();
@@ -103,6 +114,8 @@ export function ShowCreatePostCard( {onCancel}: { onCancel: () => void }) {
     label.appendChild(input);
 
     input_area.appendChild(label);
+
+    // setIsUploadWithImage(true);
 
     // btn.disabled = true;
     // btn.style.cursor = 'not-allowed';

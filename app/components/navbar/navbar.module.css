@@ -1,17 +1,19 @@
 .navbar {
-	display: grid;
-	grid-template-columns: .5fr 3fr 4fr 1fr;
+	/*display: grid;*/
+	/*grid-template-columns: .5fr 3fr 4fr 1fr;*/
 	color: white;
 	background-color: var(--pastel-light-green);
 	padding: 10px 20px;
-	align-items: center;
-	position: sticky;
+	/*align-items: center;*/
+	/*position: sticky;*/
 	top: 0px;
 	z-index: 9999;
+	width: 100%;
+	flex-shrink: 0;
 }
 
 .nav {
-	width: 100%;
+	width: 50%;
 	display: flex;
 	justify-content: space-evenly;
 }
@@ -28,11 +30,6 @@
 	font-weight: bold;
 }
 
-.search_bar {
-	display: flex;
-	align-items: center;
-}
-
 .search_bar input {
 	width: 100%;
 	padding: 6px 10px;
@@ -47,6 +44,6 @@
 	padding: 6px 10px;
 	border: none;
 	background-color: #FFB74D;
-	border-radius: 0 20px 20px 0;
+	/*border-radius: 0 20px 20px 0;*/
 	cursor: pointer;
 }

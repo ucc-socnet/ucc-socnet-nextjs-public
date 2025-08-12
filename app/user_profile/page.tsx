@@ -114,8 +114,8 @@ function ProfileContent() {
               <div className={`mt-10 ${styles.bio}`}>
                 <h1 className="text-2xl">{username}</h1>
 
-                <p className="bio mt-10 text-justify">
-                  {userBio}
+                <p className="mt-10 text-justify">
+                  {userBio ? userBio : 'no bio'}
                 </p>
 
               </div>

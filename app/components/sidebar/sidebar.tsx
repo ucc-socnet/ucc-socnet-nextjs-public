@@ -4,13 +4,43 @@ import Link from 'next/link';
 export default function Sidebar() {
 	return (
 
-	<aside className={`${style.sidebar} w-20 lg:w-50`}>
-      <ul className={style.navside_controls}>
-        <Link href="/"><li><i className="fas fa-home text-2xl"></i> <span className="invisible lg:visible">Home</span></li></Link>
-        <a href="/profile"><li><i className="fas fa-user text-2xl"></i> <span className="invisible lg:visible">Profile</span></li></a>
-        <li><i className="fas fa-user-friends text-2xl"></i><span className="invisible lg:visible">Friends</span></li>
-        <li><i className="fas fa-heart text-2xl"></i><span className="invisible lg:visible">My Likes</span></li>
-        <li><i className="fas fa-bookmark text-2xl"></i><span className="invisible lg:visible">Bookmarks</span></li>
+	<aside className={`${style.sidebar} lg:w-50 md:sticky lg:sticky md:h-screen lg:h-screen shrink-0`}>
+      <ul className="flex list-none justify-evenly items-center sticky top-100 md:block lg:block">
+        <Link href="/">
+          <li className="flex my-5">
+            <i className="fas mx-3 fa-home text-xl lg:text-2xl md:text-2xl"></i>
+            <span className="hidden lg:block">Home</span>
+          </li>
+        </Link>
+
+        <Link href="/profile">
+          <li className="flex my-5">
+            <i className="fas mx-3 fa-user text-xl lg:text-2xl md:text-2xl"></i>
+            <span className="hidden lg:block">Profile</span>
+          </li>
+        </Link>
+        
+        <Link href="/">
+          <li className="flex my-5">
+            <i className="fas mx-3 fa-user-friends text-xl lg:text-2xl md:text-2xl"></i>
+            <span className="hidden lg:block">Friends</span>
+          </li>
+        </Link>
+        
+        <Link href="/">
+          <li className="flex my-5">
+            <i className="fas mx-3 fa-heart text-xl lg:text-2xl md:text-2xl"></i>
+            <span className="hidden lg:block">My Likes</span>
+          </li>
+        </Link>
+
+        <Link href="/">
+          <li className="flex my-5">
+            <i className="fas mx-3 fa-bookmark text-xl lg:text-2xl md:text-2xl"></i>
+            <span className="hidden lg:block">Bookmarks</span>
+          </li>
+        </Link>
+
       </ul>
     </aside>
 	);

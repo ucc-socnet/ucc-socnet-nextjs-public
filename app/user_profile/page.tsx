@@ -1,7 +1,7 @@
 'use client';
 
 import { Suspense } from 'react';
-import styles from './styles.module.css';
+// import styles from './styles.module.css';
 import NavBar from '../components/navbar/navbar';
 import PostCard from "../components/post_card/post_card";
 import { useEffect, useState } from 'react';
